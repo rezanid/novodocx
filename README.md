@@ -76,13 +76,17 @@ Response:
 
 There will be other options soon to send back the file in binary without base-64 encoding it.
 
+> 📯 NOTE! 
+>
+> As a bonus, the Functions App also produces an OpenAPI definition that you can access visually from `/api/word/swagger/ui`. I will keep it up-to-date with the implementation. 
+
 ### Use the library directly
 
 Coming soon.
 
 ## Roadmap
 
-The next steps for the library are listed below with no order of priority.
+The next milestones for 2022 are listed below with no order of priority.
 
 * Publish the alpha version of the library as a NuGet.
 * Report warnings in the result as well, like a good compiler would. This should be possible to turn on/off.
@@ -90,6 +94,3 @@ The next steps for the library are listed below with no order of priority.
 * Provide ARM template and pipeline for Azure.
 * Add file conversion (e.g. PDF) functionality.
 * Power Platform Connector.
-
-
-
