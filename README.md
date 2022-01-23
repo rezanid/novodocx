@@ -16,10 +16,10 @@ Imagine having a standard Word document in whatever formatting, complexity or le
 To be honest, at the time of this writing I only know two other alternatives that worth exploring and they might even fit better in your workflow.
 
 * Word templates feature in Microsoft Dynamics (Power Platform) - this one is an old and mature functionality of Microsoft Dynamics CRM that has inherited by the Power Platform and this here is one of the downsides, you can only use it in a Power Platform solution and nothing else. Another downside is that it is very limited, a template can only work with an assigned table and its direct related tables.
-* Word online connector for Power Platform - again this one works fine, but one downside is that it only works with Power Platform and another big downside is that when the source of your document is dynamic, for example you have a flow that is part of a solution that deploys to different environments (think DevOps and ALM) and the URLs change, you will have to rely on random numbers instead of placeholder names!
+* Word online connector for Power Platform - again this one works fine, but one downside is that it only works with Power Platform, it's a premium connector (i.e. paid) and another downside is that when the location of your document is dynamic, for example you have a flow that is part of a solution that deploys to different environments (think DevOps and ALM) and the URLs change, you will have to rely on random numbers instead of placeholder names!
 * There are several paid alternatives as well. One of them is good by the way, but even that one is not as simple as you might imagine to work with and there is no other open-source alternative that I am aware of. 
 
-If the above options sound gibberish to you, they are for Power Platform developers (basically a low-code application development platform from Microsoft), but even they some times are not easy or capable enough to work with. Now enter Novo Docx.
+If the first two alternatives sound gibberish to you, they are for Power Platform developers (basically a low-code application development platform from Microsoft), but even they some times are not easy or good enough to work with and both require licensing.
 
  ## What is Novo Docx
 
