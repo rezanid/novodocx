@@ -1,0 +1,7 @@
+{
+    "textInRun": "Text in Run",
+    "textInRunInParagraph": "Text in Run in Paragraph",
+    "textInRunInParagraphInCell": "Text in Run in Paragraph in Cell",
+    "textInRunAllowMulti": "Text in Run Allow Multi Line 1\r\nLine 2.",
+    "textInRunWithPlaceholderText": "Text in Run with Placeholder Text"
+}
