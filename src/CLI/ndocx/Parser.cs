@@ -1,0 +1,182 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.CommandLine;
+using System.CommandLine.Builder;
+using System.CommandLine.Help;
+using System.CommandLine.Invocation;
+using System.CommandLine.IO;
+using System.CommandLine.Parsing;
+
+namespace Novo.Docx.Cli;
+
+public static class Parser
+{
+    public static readonly RootCommand RootCommand = new();
+
+    internal static Dictionary<Option, Dictionary<Command, string>> HelpDescriptionCustomizations = new Dictionary<Option, Dictionary<Command, string>>();
+    
+    public static readonly Command[] Subcommands = new Command[]
+    {
+        PopulateCommandParser.GetCommand()
+    };
+
+    public static readonly Option<bool> VersionOption = new("--version");
+    public static readonly Option<bool> InfoOption = new("--info");
+
+    public static readonly Argument<string> SubCommand = new() { Arity = ArgumentArity.ExactlyOne, IsHidden = true };
+
+
+    private static Command ConfigureCommandLine(Command rootCommand)
+    {
+        // Add subcommands
+        foreach (var subcommand in Subcommands)
+        {
+            rootCommand.AddCommand(subcommand);
+        }
+
+        // Add options
+        rootCommand.AddOption(VersionOption);
+        rootCommand.AddOption(InfoOption);
+
+        // Add argument
+        rootCommand.AddArgument(SubCommand);
+
+        return rootCommand;
+    }
+
+    public static Command GetBuiltInCommand(string commandName)
+    {
+        return Subcommands
+            .FirstOrDefault(c => c.Name.Equals(commandName, StringComparison.OrdinalIgnoreCase));
+    }
+
+    public static System.CommandLine.Parsing.Parser Instance { get; } = new CommandLineBuilder(ConfigureCommandLine(RootCommand))
+        .UseExceptionHandler(ExceptionHandler)
+        .UseHelp()
+        .UseHelpBuilder(context => NDocxHelpBuilder.Instance.Value)
+        .UseLocalizationResources(new CommandLineValidationMessages())
+        .UseParseDirective()
+        .UseSuggestDirective()
+        .DisablePosixBinding()
+        .EnableLegacyDoubleDashBehavior()
+        .Build();
+    
+    private static void ExceptionHandler(Exception exception, InvocationContext context)
+    {
+        if (exception is TargetInvocationException)
+        {
+            exception = exception.InnerException;
+        }
+
+        if (exception is Utils.GracefulException)
+        {
+            context.Console.Error.WriteLine(exception.Message);
+        }
+        else if (exception is CommandParsingException)
+        {
+            context.Console.Error.WriteLine(exception.Message);
+        }
+        else
+        {
+            context.Console.Error.Write("Unhandled exception: ");
+            context.Console.Error.WriteLine(exception.ToString());
+        }
+        context.ParseResult.ShowHelp();
+        context.ExitCode = 1;
+    }
+
+    private static CommandLineBuilder DisablePosixBinding(this CommandLineBuilder builder)
+    {
+        builder.EnablePosixBundling = false;
+        return builder;
+    }
+
+    internal class NDocxHelpBuilder : HelpBuilder
+    {
+        private NDocxHelpBuilder(int maxWidth = int.MaxValue) : base(LocalizationResources.Instance, maxWidth) { }
+
+        public static Lazy<HelpBuilder> Instance = new(() => {
+            int windowWidth;
+            try
+            {
+                windowWidth = Console.WindowWidth;
+            }
+            catch
+            {
+                windowWidth = int.MaxValue;
+            }
+
+            var helpBuilder = new NDocxHelpBuilder(windowWidth);
+            //helpBuilder.CustomizeSymbol(FormatCommandCommon.DiagnosticsOption, defaultValue: Tools.Format.LocalizableStrings.whichever_ids_are_listed_in_the_editorconfig_file);
+            //helpBuilder.CustomizeSymbol(FormatCommandCommon.IncludeOption, defaultValue: Tools.Format.LocalizableStrings.all_files_in_the_solution_or_project);
+            //helpBuilder.CustomizeSymbol(FormatCommandCommon.ExcludeOption, defaultValue: Tools.Format.LocalizableStrings.none);
+
+            //SetHelpCustomizations(helpBuilder);
+
+            return helpBuilder;
+        });
+
+        private static void SetHelpCustomizations(HelpBuilder builder)
+        {
+            foreach (var option in HelpDescriptionCustomizations.Keys)
+            {
+                Func<HelpContext, string> descriptionCallback = (HelpContext context) =>
+                {
+                    foreach (var (command, helpText) in HelpDescriptionCustomizations[option])
+                    {
+                        if (context.ParseResult.CommandResult.Command.Equals(command))
+                        {
+                            return helpText;
+                        }
+                    }
+                    return null;
+                };
+                builder.CustomizeSymbol(option, secondColumnText: descriptionCallback);
+            }
+        }
+
+        public override void Write(HelpContext context)
+        {
+            var command = context.Command;
+            var helpArgs = new string[] { "--help" };
+            if (command.Equals(RootCommand))
+            {
+                Console.Out.WriteLine(HelpUsageText.UsageText);
+            }
+            //else if (command.Name.Equals(NuGetCommandParser.GetCommand().Name))
+            //{
+            //    NuGetCommand.Run(helpArgs);
+            //}
+            //else if (command.Name.Equals(MSBuildCommandParser.GetCommand().Name))
+            //{
+            //    new MSBuildForwardingApp(helpArgs).Execute();
+            //}
+            //else if (command.Name.Equals(NewCommandParser.GetCommand().Name))
+            //{
+            //    NewCommandShim.Run(context.ParseResult.GetArguments());
+            //}
+            //else if (command.Name.Equals(VSTestCommandParser.GetCommand().Name))
+            //{
+            //    new VSTestForwardingApp(helpArgs).Execute();
+            //}
+            else
+            {
+            //    if (command.Name.Equals(ListProjectToProjectReferencesCommandParser.GetCommand().Name))
+            //    {
+            //        ListCommandParser.SlnOrProjectArgument.Name = CommonLocalizableStrings.ProjectArgumentName;
+            //        ListCommandParser.SlnOrProjectArgument.Description = CommonLocalizableStrings.ProjectArgumentDescription;
+            //    }
+            //    else if (command.Name.Equals(AddPackageParser.GetCommand().Name) || command.Name.Equals(AddCommandParser.GetCommand().Name))
+            //    {
+            //        // Don't show package completions in help
+            //        AddPackageParser.CmdPackageArgument.Completions.Clear();
+            //    }
+
+                base.Write(context);
+            }
+        }
+    }
+}

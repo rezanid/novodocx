@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ndocx": {
+      "commandName": "Project",
+      "commandLineArgs": "populate SimpleTemplate.docx -p Params.json -o Output.docx"
+    }
+  }
+}
