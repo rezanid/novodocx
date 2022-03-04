@@ -1,5 +1,9 @@
 # Novo Docx 
-Novo Docx exists because I looked everywhere and I couldn't find a viable and simple library that can help me populate Word templates. The templates I'm talking about are the ones that have placeholders that people can fill like a form. Some people call them Word forms. You might be thinking what about generating the whole document from the scratch, since there are some libraries for that purpose and you would be right, but generating the whole document from the scratch by code is not an easy task unless your document is extremely simple and nothing like a real world form or report.
+Novo Docx exists because I looked everywhere and I couldn't find a viable and simple library that can help me populate Word templates. The templates I'm talking about are the ones that have placeholders that people can fill like a form. Some people call them Word forms. 
+
+![Word template example screenshot](.media/word-template-example)
+
+You might be thinking what about generating the whole document from the scratch, since there are some libraries for that purpose and you would be right, but generating the whole document from the scratch by code is not an easy task unless your document is extremely simple and nothing like a real world form or report.
 
 Imagine having a standard Word document in whatever formatting, complexity or length and only adding placeholders that your app can detect and fill with real data at runtime. Even the business users can do it, in fact they can do it better than you. They might have even shared it with you already and that might be why you are here. 😆 If that is the case you won't be disappointed, I promise. 
 
