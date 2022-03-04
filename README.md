@@ -35,9 +35,52 @@ Novo Docx is a .NET core library and an Azure Functions App that hosts it. You c
 
 ## How to use
 
-There are several options to use Novo Docx, it depends on whether you want to use it as a library in your app, or you prefer to host it somewhere as a severless service an simply call it over HTTP(S).
+There are several options to use Novo Docx, it depends on whether you want to use it as a library in your app, as a CLI from your terminal of choice, or you prefer to host it somewhere as a severless service and simply call it over HTTP(S). Right now you have the following options
 
-### Use serverless as an Azure Functions App
+* Terminal / Console / PowerShell: docx CLI
+* Serverless: Docx Functions App 
+* Docx .NET Library
+
+## Terminal / Console / PowerShell: ndocx CLI
+
+Using `docx` in your terminal might be the easiest way to populate word templates. It can be as easy as:
+
+```bash
+> ndocx populate yourworddocument.docx
+```
+
+You might be asking what about the parameter. Well, by default, the `populate` command assumes that there is a file called "params.json" right beside your word document. If you have your parameters in a different file or location, you can use the following syntax.
+
+```bash
+> ndocx populate yourworddocument.docx -params myparams.json
+```
+
+If you don't want to directly fill the word document and instead fill a copy of the file, you may use the following syntax.
+
+```bash
+> ndocx populate yourworddocument.docx -params myparams.json -output filleddocument.docx
+```
+
+The full syntax is like this:
+
+```
+ndocx populate [<TEMPLATE>...] [options]
+
+Arguments:
+  <TEMPLATE>  The template file to operate on. If a file is not specified, the command will search the current
+              directory for a .docx file.
+
+Options:
+  -p, --params <PARAMS>  The params file to use as input parameter. If none is given, the command will look for
+                         params.json file in the current path.
+  -o, --output <OUTPUT>  The output file to generate. If none is given, the operation will be performed in place on the
+                         input file.
+  -?, -h, --help         Show command line help.
+```
+
+If you look carefully at the above description, you'll see that you can even fill multiple files.
+
+## Serverless: Docx Functions App
 
 If you are going to host the Azure Function App, basically you just need one REST call from the comfort of your app! 😉
 
@@ -84,7 +127,7 @@ There will be other options soon to send back the file in binary without base-64
 >
 > As a bonus, the Functions App also produces an OpenAPI definition that you can access visually from `/api/word/swagger/ui`. I will keep it up-to-date with the implementation. 
 
-### Use the library directly
+### Docx .NET Library
 
 Coming soon.
 
