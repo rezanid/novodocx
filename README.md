@@ -31,7 +31,7 @@ Novo Docx is a .NET core library and an Azure Functions App that hosts it. You c
 
 > 📯 NOTE! 
 >
-> I will be making a Lambda Function to make it easy for those who are into AWS to host it there too. 
+> I will be making a Lambda Function to make it easy for those who are into AWS. 
 
 ## How to use
 
