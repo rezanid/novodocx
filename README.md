@@ -27,11 +27,11 @@ If the first two alternatives sound gibberish to you, they are for Power Platfor
 
  ## What is Novo Docx
 
-Novo Docx is a .NET core library and an Azure Functions App that hosts it. You can send a Word template along with a JSON object to populate the template and return the result to you in the same call, lightning fast.
+Novo Docx is a .NET core library and an Azure Functions App that hosts it. You can send a Word template along with a JSON object to populate the template and it returns the filled template in the same call, lightning fast.
 
 > 📯 NOTE! 
 >
-> I will be making a Lambda Function to make it easy for those who are into AWS. 
+> I will make a Lambda Function to make it easy for those who are into AWS. 
 
 ## How to use
 
