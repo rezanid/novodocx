@@ -36,11 +36,11 @@ Novo Docx is a .NET core library and an Azure Functions App that hosts it. You c
 
 There are several ways to use Novo Docx, it depends on whether you want to use it as a library in your app, as a CLI from your terminal of choice, or you prefer to host it somewhere as a severless service and simply call it over HTTP(S). Right now you have the following options out-of-the-box.
 
-* [Terminal / Console / PowerShell: docx CLI](#terminal--console--powershell-ndocx-cli)
-* [Serverless: Docx Functions App](#serverless-docx-functions-app)
+* [Use from Terminal / Console / PowerShell: docx CLI](#use-from-terminal--console--powershell-ndocx-cli)
+* [Use as Serverless: Docx Functions App](#use-as-serverless-docx-functions-app)
 * [Docx .NET Library](#docx-net-library)
 
-## Terminal / Console / PowerShell: ndocx CLI
+## Use from Terminal / Console / PowerShell: ndocx CLI
 
 Using `docx` in your terminal might be the easiest way to populate word templates. It can be as easy as:
 
@@ -79,7 +79,7 @@ Options:
 
 If you look carefully at the above description, you'll see that you can even fill multiple files.
 
-## Serverless: Docx Functions App
+## Use as Serverless: Docx Functions App
 
 If you are going to host the Azure Function App, basically you just need one REST call from the comfort of your app! 😉
 
