@@ -10,10 +10,9 @@ Imagine you have received a standard Word document in whatever formatting, compl
 > 📯 NOTE! 
 >
 > If you are not familiar with the templates or how to build them in Microsoft Word, please take a look at the following article. 
->
-> [Create forms that users complete or print in Word](https://support.microsoft.com/en-us/office/create-forms-that-users-complete-or-print-in-word-040c5cc1-e309-445b-94ac-542f732c8c8b)
 
- 
+To know more about Word forms I suggest you read the following article from official support documents.
+> [Create forms that users complete or print in Word](https://support.microsoft.com/en-us/office/create-forms-that-users-complete-or-print-in-word-040c5cc1-e309-445b-94ac-542f732c8c8b)
 
 ## Other alternatives
 
