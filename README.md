@@ -72,7 +72,7 @@ Arguments:
 Options:
   -p, --params <PARAMS>  The params file to use as input parameter. If none is given, the command will look for
                          params.json file in the current path.
-  -o, --output <OUTPUT>  The output file to generate. If none is given, the operation will be performed in place on the
+  -o, --output <OUTPUT>  The output file to generate. If none is given, the operation will be performed in-place on the
                          input file.
   -?, -h, --help         Show command line help.
 ```
