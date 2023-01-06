@@ -92,7 +92,7 @@ Content-Type: application/json
 Content-Length: 1690176
 {
   "parameters":
- {
+  {
     "totalcost":"125000",
     "address":"Somewhere street 1, somecity"
     "items": [
