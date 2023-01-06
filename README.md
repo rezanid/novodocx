@@ -3,9 +3,9 @@ Novo Docx exists because I looked everywhere and I couldn't find a viable and si
 
 ![Word template example screenshot](.media/word-template-example)
 
-You might be thinking what about generating the whole document from the scratch, since there are some libraries for that purpose and you would be right, but generating the whole document from the scratch by code is not an easy task unless your document is extremely simple and nothing like a real world form or report.
+You might be thinking what about generating the whole document from the scratch, since there are some libraries for that purpose and you would be right, but generating the whole document from the scratch by code is not an easy task unless your document is extremely simple and nothing like a real world form or a real world report.
 
-Imagine having a standard Word document in whatever formatting, complexity or length and only adding placeholders that your app can detect and fill with real data at runtime. Even the business users can do it, in fact they can do it better than you. They might have even shared it with you already and that might be why you are here. 😆 If that is the case you won't be disappointed, I promise. 
+Imagine you have received a standard Word document in whatever formatting, complexity or length. You are tasked with making parts of the content, dynamically change based on some external data. Some of these content parts might be even repeatable. You can add content placeholders (using Developer tab in Microsoft Word) where needed (e.g. even rows of tables can become place holders). NovoDocx can detect and fill them with real data at runtime. Even the business users can add place holders. In fact they might do it even better than you. NovoDocx expects a JSON object as the input. This JSON object should contain all the required data to fill the document template. As long as your place holders match the names of properties in the JSON object, NovoDocs will find them. You can also use arrays for repeatable sections of the document (i.e. a table row).
 
 > 📯 NOTE! 
 >
