@@ -126,7 +126,7 @@ There will be other options soon to send back the file in binary without base-64
 >
 > As a bonus, the Functions App also produces an OpenAPI definition that you can access visually from `/api/word/swagger/ui`. I will keep it up-to-date with the implementation. 
 
-### Docx .NET Library
+## Docx .NET Library
 
 Coming soon.
 
