@@ -1,5 +1,5 @@
 # Novo Docx 
-Novo Docx exists because I looked everywhere and I couldn't find a viable and simple-to-use library that can help me populate Word templates. The templates I'm talking about are the ones that have placeholders that people can fill like a form. Some people call them Word forms. 
+Novo Docx exists because I looked everywhere and I couldn't find a viable and simple-to-use library that can help me populate Word templates. The templates I'm talking about are standard template of Microsoft Word. In other words, Word documents that have placeholders. These are use by actual people like a form that they can fill. Some people call them Word forms.
 
 ![Word template example screenshot](.media/word-template-example)
 
