@@ -34,7 +34,7 @@ Novo Docx is a .NET core library and an Azure Functions App that hosts it. You c
 
 ## How to use
 
-There are several options to use Novo Docx, it depends on whether you want to use it as a library in your app, as a CLI from your terminal of choice, or you prefer to host it somewhere as a severless service and simply call it over HTTP(S). Right now you have the following options
+There are several ways to use Novo Docx, it depends on whether you want to use it as a library in your app, as a CLI from your terminal of choice, or you prefer to host it somewhere as a severless service and simply call it over HTTP(S). Right now you have the following options out-of-the-box.
 
 * [Terminal / Console / PowerShell: docx CLI](#terminal--console--powershell-ndocx-cli)
 * [Serverless: Docx Functions App](#serverless-docx-functions-app)
