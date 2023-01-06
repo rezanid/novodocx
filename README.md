@@ -116,7 +116,7 @@ Response:
     "success": true,
     "message": "Document has been populated successfully."
   }
-  "file":"base64-encoded docx file to be populated"
+  "file":"Populated base64-encoded file"
 }
 ```
 
