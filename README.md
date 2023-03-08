@@ -51,13 +51,13 @@ Using `docx` in your terminal might be the easiest way to populate word template
 You might be asking what about the parameter. Well, by default, the `populate` command assumes that there is a file called "params.json" right beside your word document. If you have your parameters in a different file or location, you can use the following syntax.
 
 ```bash
-> ndocx populate yourworddocument.docx -params myparams.json
+> ndocx populate yourworddocument.docx --params myparams.json
 ```
 
 If you don't want to directly fill the word document and instead fill a copy of the file, you may use the following syntax.
 
 ```bash
-> ndocx populate yourworddocument.docx -params myparams.json -output filleddocument.docx
+> ndocx populate yourworddocument.docx --params myparams.json --output filleddocument.docx
 ```
 
 The full syntax is like this:
