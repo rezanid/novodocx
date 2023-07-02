@@ -1,6 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json.Linq;
@@ -8,7 +7,6 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Novo.DocumentService;
-using Novo.AzureFunctions;
 
 namespace Novo.AzureFunctions.Tests;
 [TestClass]
