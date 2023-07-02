@@ -1,9 +1,14 @@
 using System.Net;
 using System.Text;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Linq;
+using Novo.AzureFunctions.OpenApi;
 using Novo.DocumentService;
 
 namespace Novo.AzureFunctions
@@ -20,6 +25,11 @@ namespace Novo.AzureFunctions
         }
 
         [Function("Word")]
+        [OpenApiOperation(operationId: nameof(PopulateTemplate))]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+        [OpenApiRequestBody(contentType: "application/json", typeof(WordRequestModel), Example = typeof(WordRequestModelExample))]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(DocumentProcessingResult), Example = typeof(DocumentProcessingResultExample))]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.BadRequest, contentType: "application/json", bodyType: typeof(DocumentProcessingResult), Example = typeof(DocumentProcessingResultBadRequestExample))]
         public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequestData req)
         {
             var encoding = DetectEncodingFromContentType(req);
