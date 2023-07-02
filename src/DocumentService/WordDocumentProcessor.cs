@@ -97,7 +97,7 @@ public class WordDocumentProcessor : IDocumentProcessor
         }
         var topLevelSdtElements
             = mainPart.Document.Descendants<SdtElement>().Where(e => !e.Ancestors<SdtElement>().Any());
-        // Note: An <sdt> can be SdtBlock, SdtCell, SdtRow, SdtRun, SdtRunRub, and they are inherit
+        // Note: An <sdt> can be SdtBlock, SdtCell, SdtRow, SdtRun, SdtRunRub, and they all inherit
         // from SdtElement. That's why we used SdtElement above.
         foreach (var sdtElement in topLevelSdtElements)
         {
@@ -122,7 +122,7 @@ public class WordDocumentProcessor : IDocumentProcessor
         if (string.IsNullOrWhiteSpace(tag.Val))
         {
             _logger.LogWarning(
-                "Placeholder found without an empty tag. Placeholders without tag are not supported.");
+                "Placeholder found without an empty tag. Placeholders without empty tag are not supported.");
             return;
         }
         _logger.LogDebug($"Processing tag: '{tag.Val}'");
