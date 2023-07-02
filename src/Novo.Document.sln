@@ -1,25 +1,32 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctions", "AzureFunctions\AzureFunctions.csproj", "{9439A7ED-E33E-4BD1-8B8E-61839EEF1B12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFunctions", "AzureFunctions\AzureFunctions.csproj", "{9439A7ED-E33E-4BD1-8B8E-61839EEF1B12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentService", "DocumentService\DocumentService.csproj", "{1670D823-EAB3-4E71-95E8-67DBC715909A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentService", "DocumentService\DocumentService.csproj", "{1670D823-EAB3-4E71-95E8-67DBC715909A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E7E20269-DD2E-4E5B-9B9D-AC7BED541A2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctions.Tests", "Tests\AzureFunctions.Tests\AzureFunctions.Tests.csproj", "{456BA2EA-1EF3-4FFC-AF4B-6371C7C5970D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFunctions.Tests", "Tests\AzureFunctions.Tests\AzureFunctions.Tests.csproj", "{456BA2EA-1EF3-4FFC-AF4B-6371C7C5970D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentServiceTest", "Tests\DocumentService.Tests\DocumentServiceTest.csproj", "{181AA725-76BA-4E0F-B153-8FD0E3FB6FC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentServiceTest", "Tests\DocumentService.Tests\DocumentServiceTest.csproj", "{181AA725-76BA-4E0F-B153-8FD0E3FB6FC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{4BB99948-B89F-4911-AE7E-762C3025EFC8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleConsoleApp", "Samples\SimpleConsoleApp\SimpleConsoleApp.csproj", "{2341087B-6AAB-4D6D-9AA3-DACAB552375F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cli", "Cli", "{0C6E1D3E-B957-4445-9BB9-CFA284E3D42D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ndocx", "CLI\ndocx\ndocx.csproj", "{29906B72-C475-4022-B308-AD056CBD78E1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Novo.Docx.Cli.Utils", "CLI\Novo.Docx.Cli.Utils\Novo.Docx.Cli.Utils.csproj", "{FFB7C538-6E60-4574-BE25-2490FC286BA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9439A7ED-E33E-4BD1-8B8E-61839EEF1B12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -38,9 +45,30 @@ Global
 		{181AA725-76BA-4E0F-B153-8FD0E3FB6FC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{181AA725-76BA-4E0F-B153-8FD0E3FB6FC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{181AA725-76BA-4E0F-B153-8FD0E3FB6FC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2341087B-6AAB-4D6D-9AA3-DACAB552375F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2341087B-6AAB-4D6D-9AA3-DACAB552375F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2341087B-6AAB-4D6D-9AA3-DACAB552375F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2341087B-6AAB-4D6D-9AA3-DACAB552375F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29906B72-C475-4022-B308-AD056CBD78E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29906B72-C475-4022-B308-AD056CBD78E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29906B72-C475-4022-B308-AD056CBD78E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29906B72-C475-4022-B308-AD056CBD78E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFB7C538-6E60-4574-BE25-2490FC286BA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFB7C538-6E60-4574-BE25-2490FC286BA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFB7C538-6E60-4574-BE25-2490FC286BA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFB7C538-6E60-4574-BE25-2490FC286BA7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{456BA2EA-1EF3-4FFC-AF4B-6371C7C5970D} = {E7E20269-DD2E-4E5B-9B9D-AC7BED541A2F}
 		{181AA725-76BA-4E0F-B153-8FD0E3FB6FC3} = {E7E20269-DD2E-4E5B-9B9D-AC7BED541A2F}
+		{2341087B-6AAB-4D6D-9AA3-DACAB552375F} = {4BB99948-B89F-4911-AE7E-762C3025EFC8}
+		{29906B72-C475-4022-B308-AD056CBD78E1} = {0C6E1D3E-B957-4445-9BB9-CFA284E3D42D}
+		{FFB7C538-6E60-4574-BE25-2490FC286BA7} = {0C6E1D3E-B957-4445-9BB9-CFA284E3D42D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B242EE6E-B8B0-4BE0-B445-E767ED69C9B0}
 	EndGlobalSection
 EndGlobal
