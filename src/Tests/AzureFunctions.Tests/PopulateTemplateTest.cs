@@ -1,28 +1,34 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using Novo.DocumentService;
+using Microsoft.Azure.Functions.Worker.Http;
+using AzureFunctions.Tests;
 
 namespace Novo.AzureFunctions.Tests;
 [TestClass]
 public class PopulateTemplateTest
 {
+    private PopulateTemplate _sut;
+
+    [TestInitialize]
+    public void Initialize()
+    {
+        var documentProcessor = new WordDocumentProcessor(new NullLogger<WordDocumentProcessor>());
+        _sut = new PopulateTemplate(new NullLoggerFactory(), documentProcessor);
+    }
+
     [TestMethod]
     public async Task PopulateTemplateNotThrow()
     {
         var request = CreateHttpRequest(Path.Combine("Samples","InputPayload.json"));
-        var documentProcessor = new WordDocumentProcessor(new NullLogger<WordDocumentProcessor>());
-        var azFunction = new PopulateTemplate(new NullLogger<PopulateTemplate>(), documentProcessor);
-
-        var response = (OkObjectResult)await azFunction.Run(request);
+        var response = await _sut.Run(request);
         
-        Assert.AreEqual(200, response.StatusCode);
-        var result = (JObject)response.Value;
+        Assert.AreEqual(System.Net.HttpStatusCode.OK, response.StatusCode);
+        var result = JObject.Parse(await response.GetResponseBodyAsync());
         Assert.IsNotNull(result);
         Assert.IsTrue(result.ContainsKey("file"));
 #if WRITEOUTPUT
@@ -30,14 +36,8 @@ public class PopulateTemplateTest
 #endif
     }
 
-    private static HttpRequest CreateHttpRequest(string filePath)
-    {
-        var context = new DefaultHttpContext();
-        var request = context.Request;
-        request.Method = "POST";
-        request.Body = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-        return request;
-    }
+    private static MockHttpRequestData CreateHttpRequest(string filePath) => 
+        new("POST", new Uri("http://function/Word", UriKind.Absolute), File.ReadAllText(filePath));
 
     private void WriteBase64ToFile(string base64, string filePath)
     {

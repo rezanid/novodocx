@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFunctions", "AzureFunctions\AzureFunctions.csproj", "{9439A7ED-E33E-4BD1-8B8E-61839EEF1B12}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentService", "DocumentService\DocumentService.csproj", "{1670D823-EAB3-4E71-95E8-67DBC715909A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E7E20269-DD2E-4E5B-9B9D-AC7BED541A2F}"
@@ -23,16 +21,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ndocx", "CLI\ndocx\ndocx.cs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Novo.Docx.Cli.Utils", "CLI\Novo.Docx.Cli.Utils\Novo.Docx.Cli.Utils.csproj", "{FFB7C538-6E60-4574-BE25-2490FC286BA7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFunctions", "AzureFunctions\AzureFunctions.csproj", "{2C82BC33-20FF-4ED0-B5FE-F5CE0F345904}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9439A7ED-E33E-4BD1-8B8E-61839EEF1B12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9439A7ED-E33E-4BD1-8B8E-61839EEF1B12}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9439A7ED-E33E-4BD1-8B8E-61839EEF1B12}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9439A7ED-E33E-4BD1-8B8E-61839EEF1B12}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1670D823-EAB3-4E71-95E8-67DBC715909A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1670D823-EAB3-4E71-95E8-67DBC715909A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1670D823-EAB3-4E71-95E8-67DBC715909A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,6 +53,10 @@ Global
 		{FFB7C538-6E60-4574-BE25-2490FC286BA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFB7C538-6E60-4574-BE25-2490FC286BA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFB7C538-6E60-4574-BE25-2490FC286BA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C82BC33-20FF-4ED0-B5FE-F5CE0F345904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C82BC33-20FF-4ED0-B5FE-F5CE0F345904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C82BC33-20FF-4ED0-B5FE-F5CE0F345904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C82BC33-20FF-4ED0-B5FE-F5CE0F345904}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
