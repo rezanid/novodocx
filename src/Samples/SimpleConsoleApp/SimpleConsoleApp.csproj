@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <None Update="SimpleTemplate.docx" CopyToOutputDirectory="PreserveNewest"/>
+    <None Update="SimpleTemplate.docx" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <ProjectReference Include="..\..\DocumentService\DocumentService.csproj" />
   </ItemGroup>
 
