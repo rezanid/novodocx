@@ -7,7 +7,7 @@ You might be thinking what about generating the whole document from the scratch,
 
 Imagine you have received a standard Word document in whatever formatting, complexity or length. You are tasked with making parts of the content, dynamically change based on some external data. Some of these content parts might be even repeatable. You can add content placeholders (using Developer tab in Microsoft Word) where needed (e.g. even rows of tables can become place holders). NovoDocx can detect and fill them with real data at runtime. Even the business users can add place holders. In fact they might do it even better than you. NovoDocx expects a JSON object as the input. This JSON object should contain all the required data to fill the document template. As long as your place holders match the names of properties in the JSON object, NovoDocx will find them. You can also use arrays for repeatable sections of the document (i.e. a table row).
 
-> 📯 NOTE! 
+> [!NOTE]
 >
 > If you are not familiar with the templates or how to build them in Microsoft Word, please take a look at the following article. 
 
@@ -28,7 +28,7 @@ If the first two alternatives sound gibberish to you, they are for Power Platfor
 
 Novo Docx is a .NET core library and an Azure Functions App that hosts it. You can send a Word template in your JSON object to populate the template and it replies with a filled document, lightning fast. In case of any issues or potencial issues, it will explain well in the reply.
 
-> 📯 NOTE! 
+> [!NOTE] 
 >
 > I will make a Lambda Function to make it easy for those who are into AWS. For now, you can read the Azure Function source code an build your Lambda function based on that.
 
@@ -122,7 +122,7 @@ Response:
 
 There will be other options soon to send back the file in binary without base-64 encoding it.
 
-> 📯 NOTE! 
+> [!NOTE] 
 >
 > As a bonus, the Functions App also produces an OpenAPI definition that you can access visually from `/api/word/swagger/ui`. I will keep it up-to-date with the implementation. 
 
