@@ -38,11 +38,11 @@ public class WordDocumentProcessor : IDocumentProcessor
                     "The 'parameters' property was not found in the input. You need to provide an input in the" +
                     " format {\"parameters\":{ ... }, \"file\":\"base64 encoded docx file\""));
         }
-        if (parameters == null) 
+        if (parameters == null)
         {
             return new DocumentProcessingResult(false, new Error(
                 "The `parameters' property has no values. You need to provide an input in the format" +
-                " {\"parameters\":{ ... }, \"file\":\"base64 encoded docx file\"")); 
+                " {\"parameters\":{ ... }, \"file\":\"base64 encoded docx file\""));
         }
         if (!input.TryGetValue("file", out var inputfile) || inputfile.Type != JTokenType.String)
         {
@@ -60,9 +60,9 @@ public class WordDocumentProcessor : IDocumentProcessor
         if (!Convert.TryFromBase64String(base64, buffer, out int writtenBytes))
         {
             return new DocumentProcessingResult(
-                success: false, 
+                success: false,
                 result: new ParsingError(
-                    message: 
+                    message:
                         "Document is not in base64 format. Make sure you are " +
                         "sending a valid base64 encoded docx file.",
                     bytesParsed: writtenBytes));
@@ -81,7 +81,7 @@ public class WordDocumentProcessor : IDocumentProcessor
         }
 
         return new DocumentProcessingResult(
-            true, 
+            true,
             new JObject(new JProperty("file", Convert.ToBase64String(stream.ToArray()))));
     }
 
@@ -90,11 +90,21 @@ public class WordDocumentProcessor : IDocumentProcessor
         var w = (XNamespace)wordml2006Ns;
         using var doc = WordprocessingDocument.Open(stream, true);
         var mainPart = doc.MainDocumentPart;
-        if (mainPart == null) 
+        if (mainPart == null)
         {
             throw new InvalidOperationException(
                 "Invalid document format. The document is lacking its main part.");
         }
+
+        var headerParts = mainPart.HeaderParts;
+        foreach (var part in headerParts)
+        {
+            foreach (var stdElement in part.Header.Descendants<SdtElement>().Where(e => !e.Ancestors<SdtElement>().Any()))
+            {
+                PopulateSdtElement(parameters, stdElement);
+            }
+        }
+
         var topLevelSdtElements
             = mainPart.Document.Descendants<SdtElement>().Where(e => !e.Ancestors<SdtElement>().Any());
         // Note: An <sdt> can be SdtBlock, SdtCell, SdtRow, SdtRun, SdtRunRub, and they are inherit
@@ -103,6 +113,16 @@ public class WordDocumentProcessor : IDocumentProcessor
         {
             PopulateSdtElement(parameters, sdtElement);
         }
+
+        var footerParts = mainPart.FooterParts;
+        foreach (var part in footerParts)
+        {
+            foreach (var stdElement in part.Footer.Descendants<SdtElement>().Where(e => !e.Ancestors<SdtElement>().Any()))
+            {
+                PopulateSdtElement(parameters, stdElement);
+            }
+        }
+
         doc.Save();
     }
 
@@ -139,8 +159,8 @@ public class WordDocumentProcessor : IDocumentProcessor
             // There are several possible types for <sdtContent> element (e.g. SdtContentBlock)
             // That's why we don't use a concrete type in the following line.
             var contentElement = sdtElement.Descendants().SingleOrDefault(e => e.XName == w + "sdtContent");
-            if (contentElement == null) 
-            { 
+            if (contentElement == null)
+            {
                 _logger.LogWarning("Placeholder doesn't have any content area.");
                 return;
             }
