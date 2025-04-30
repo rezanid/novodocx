@@ -180,27 +180,29 @@ public class WordDocumentProcessor : IDocumentProcessor
             {
                 foreach (var text in texts) { text.Remove(); }
             }
-            if (firstText == null)
+
+            if (firstText != null)
             {
-                if (firstRun != null)
-                {
-                    firstRun.AddChild(new Text(token.ToString()));
-                }
-                else if (paragraph != null)
-                {
-                    paragraph.AddChild(new Run(new Text(token.ToString())));
-                }
-                else
-                {
-                    _logger.LogWarning($"Place holder '{tag.Val}' does not have a correct structure.");
-                    return;
-                }
+                firstText.Parent!.Descendants<RunStyle>().FirstOrDefault(s => s.Val == "PlaceholderText")?.Remove();
+                firstText.Remove();
+            }
+
+            if (firstRun != null)
+            {
+                InsertTextNodes(firstRun, token.ToString());
+            }
+            else if (paragraph != null)
+            {
+                var run = new Run();
+                InsertTextNodes(run, token.ToString());
+                paragraph.AddChild(run);
             }
             else
             {
-                firstText.Text = token.ToString();
-                firstText.Parent!.Descendants<RunStyle>().FirstOrDefault(s => s.Val == "PlaceholderText")?.Remove();
+                _logger.LogWarning($"Place holder '{tag.Val}' does not have a correct structure.");
+                return;
             }
+
             paragraph?.Descendants<RunStyle>().FirstOrDefault(s => s.Val == "PlaceholderText")?.Remove();
             firstRun?.Descendants<RunStyle>().FirstOrDefault(s => s.Val == "PlaceholderText")?.Remove();
         }
@@ -259,6 +261,28 @@ public class WordDocumentProcessor : IDocumentProcessor
         else
         {
             _logger.LogWarning("Unsupported placeholder '{0}'", tag.Val);
+        }
+    }
+
+    void InsertTextNodes(Run run, string textualData)
+    {
+        string[] newLineArray = { Environment.NewLine, "\n", "\r\n", "\n\r" };
+        string[] textArray = textualData.Split(newLineArray, StringSplitOptions.None);
+
+        bool first = true;
+
+        foreach (string line in textArray)
+        {
+            if (!first)
+            {
+                run.Append(new Break());
+            }
+
+            first = false;
+
+            Text txt = new Text();
+            txt.Text = line;
+            run.Append(txt);
         }
     }
 }
