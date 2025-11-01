@@ -1,11 +1,9 @@
 ﻿namespace Novo.DocumentService;
-internal class DebugStream : Stream
+internal class DebugStream(Stream stream) : Stream
 {
-    public Stream InnerStream { get; init; }
+    public Stream InnerStream { get; init; } = stream;
 
     public DebugStream() : this(new MemoryStream()) { }
-
-    public DebugStream(Stream stream) => InnerStream = stream;
 
     public override bool CanRead => InnerStream.CanRead;
 

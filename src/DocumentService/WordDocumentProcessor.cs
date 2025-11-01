@@ -6,13 +6,14 @@ using Newtonsoft.Json.Linq;
 using System.Xml.Linq;
 
 namespace Novo.DocumentService;
+
 public interface IDocumentProcessor
 {
     DocumentProcessingResult PopulateDocumentTemplate(JObject input);
     void PopulateDocumentTemplate(JObject parameters, Stream stream);
 }
 
-public class WordDocumentProcessor : IDocumentProcessor
+public class WordDocumentProcessor(ILogger<WordDocumentProcessor> log) : IDocumentProcessor
 {
     const string documentRelationshipNs =
         "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument";
@@ -22,11 +23,6 @@ public class WordDocumentProcessor : IDocumentProcessor
         "http://schemas.openxmlformats.org/wordprocessingml/2006/main";
     const string wordml2012Ns =
         "http://schemas.microsoft.com/office/word/2012/wordml";
-
-
-    private readonly ILogger<WordDocumentProcessor> _logger;
-
-    public WordDocumentProcessor(ILogger<WordDocumentProcessor> log) => _logger = log;
 
     public DocumentProcessingResult PopulateDocumentTemplate(JObject input)
     {
@@ -76,7 +72,7 @@ public class WordDocumentProcessor : IDocumentProcessor
         }
         catch (Exception ex)
         {
-            _logger.LogCritical($"Unable to populate the document due to an error. {ex}");
+            log.LogCritical("Unable to populate the document due to an error. {Exception}", ex);
             throw;
         }
 
@@ -128,32 +124,32 @@ public class WordDocumentProcessor : IDocumentProcessor
 
     private void PopulateSdtElement(JObject parameters, SdtElement sdtElement)
     {
-        if (parameters == null) { throw new ArgumentNullException(nameof(parameters)); }
-        if (sdtElement == null) { throw new ArgumentNullException(nameof(sdtElement)); }
+        ArgumentNullException.ThrowIfNull(parameters);
+        ArgumentNullException.ThrowIfNull(sdtElement);
 
         var w = (XNamespace)wordml2006Ns;
         var tag = sdtElement.SdtProperties?.Descendants<Tag>().FirstOrDefault();
         if (tag == null || string.IsNullOrWhiteSpace(tag.Val))
         {
-            _logger.LogWarning(
+            log.LogWarning(
                 "Placeholder found without tag. Placeholders without tag are not supported.");
             return;
         }
         if (string.IsNullOrWhiteSpace(tag.Val))
         {
-            _logger.LogWarning(
+            log.LogWarning(
                 "Placeholder found without an empty tag. Placeholders without tag are not supported.");
             return;
         }
-        _logger.LogDebug($"Processing tag: '{tag.Val}'");
+        log.LogDebug("Processing tag: '{Tag}'", tag.Val);
         if (!parameters.TryGetValue(tag.Val!, out var token))
         {
-            _logger.LogInformation($"No parameter matched placeholder '{tag.Val}'.");
+            log.LogInformation("No parameter matched placeholder '{Tag}'.", tag.Val);
             return;
         }
         if (sdtElement.SdtProperties?.Descendants<SdtContentText>().Any() ?? false)
         {
-            _logger.LogDebug($"{tag.Val}: {token}");
+            log.LogDebug("{Tag}: {Token}", tag.Val, token);
             // Plain Text Content Control
             sdtElement.SdtProperties.Elements<ShowingPlaceholder>().FirstOrDefault()?.Remove();
             // There are several possible types for <sdtContent> element (e.g. SdtContentBlock)
@@ -161,7 +157,7 @@ public class WordDocumentProcessor : IDocumentProcessor
             var contentElement = sdtElement.Descendants().SingleOrDefault(e => e.XName == w + "sdtContent");
             if (contentElement == null)
             {
-                _logger.LogWarning("Placeholder doesn't have any content area.");
+                log.LogWarning("Placeholder doesn't have any content area.");
                 return;
             }
             // There can be at most one paragraph.
@@ -199,7 +195,7 @@ public class WordDocumentProcessor : IDocumentProcessor
             }
             else
             {
-                _logger.LogWarning($"Place holder '{tag.Val}' does not have a correct structure.");
+                log.LogWarning("Place holder '{Tag}' does not have a correct structure.", tag.Val);
                 return;
             }
 
@@ -211,21 +207,21 @@ public class WordDocumentProcessor : IDocumentProcessor
             // Repeating Section Content Control
             if (token is not JArray tokens)
             {
-                _logger.LogWarning(
-                    $"The value of '{tag.Val}' parameter is not an array. Parameter mapped " +
-                    $"to a repeating section can only be an array.");
+                log.LogWarning(
+                    "The value of '{Tag}' parameter is not an array. Parameter mapped " +
+                    "to a repeating section can only be an array.", tag.Val);
                 return;
             }
             var content = sdtElement.Elements().FirstOrDefault(e => e.XName == w + "sdtContent");
             if (content == null || content.FirstChild == null)
             {
-                _logger.LogCritical(
-                    $"Encountered repeating with no content area for repeating item. It will be skipped.");
+                log.LogCritical("Encountered repeating with no content area for repeating item. It will be skipped.");
             }
             if (content!.FirstChild is not SdtElement firstRepeatingItem)
             {
-                _logger.LogWarning($"Encountered repeating with wrong element instead of repeating item." +
-                    $" It will be skipped.");
+                log.LogWarning(
+                    "Encountered repeating with wrong element instead of repeating item." +
+                    " It will be skipped.");
                 return;
             }
             // Remove all exisitng repeating items (in the future we can allow the user to turn it on/off).
@@ -255,16 +251,16 @@ public class WordDocumentProcessor : IDocumentProcessor
                 //{
                 //    lastRepeatingItem.Remove();
                 //}
-                _logger.LogDebug("Placeholder row inserted successfully.");
+                log.LogDebug("Placeholder row inserted successfully.");
             }
         }
         else
         {
-            _logger.LogWarning("Unsupported placeholder '{0}'", tag.Val);
+            log.LogWarning("Unsupported placeholder '{Tag}'", tag.Val);
         }
     }
 
-    void InsertTextNodes(Run run, string textualData)
+    static void InsertTextNodes(Run run, string textualData)
     {
         string[] newLineArray = { Environment.NewLine, "\n", "\r\n", "\n\r" };
         string[] textArray = textualData.Split(newLineArray, StringSplitOptions.None);
@@ -280,8 +276,10 @@ public class WordDocumentProcessor : IDocumentProcessor
 
             first = false;
 
-            Text txt = new Text();
-            txt.Text = line;
+            Text txt = new Text
+            {
+                Text = line
+            };
             run.Append(txt);
         }
     }
