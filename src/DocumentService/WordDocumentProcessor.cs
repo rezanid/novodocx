@@ -36,9 +36,11 @@ public class WordDocumentProcessor(ILogger<WordDocumentProcessor> log) : IDocume
         }
         if (parameters == null)
         {
-            return new DocumentProcessingResult(false, new Error(
-                "The `parameters' property has no values. You need to provide an input in the format" +
-                " {\"parameters\":{ ... }, \"file\":\"base64 encoded docx file\""));
+            return new DocumentProcessingResult(
+                false, 
+                new Error(
+                    "The `parameters' property has no values. You need to provide an input in the format" +
+                    " {\"parameters\":{ ... }, \"file\":\"base64 encoded docx file\""));
         }
         if (!input.TryGetValue("file", out var inputfile) || inputfile.Type != JTokenType.String)
         {

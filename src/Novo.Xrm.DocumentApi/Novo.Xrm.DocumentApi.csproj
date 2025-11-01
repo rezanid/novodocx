@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+    <AssemblyName>Novo.Xrm.DocumentApi</AssemblyName>
+    <RootNamespace>Novo.Xrm.DocumentApi</RootNamespace>
+    <Deterministic>true</Deterministic>
+
+    <!-- Keep this true if you have Properties/AssemblyInfo.cs with custom attributes -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="System.IO.Compression" Version="4.3.0" />
+  </ItemGroup>
+</Project>
