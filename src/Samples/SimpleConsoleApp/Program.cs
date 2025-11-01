@@ -31,7 +31,7 @@ else
     Console.WriteLine("Template population failed.");
 }
 
-void WriteBase64ToFile(string base64, string filePath)
+static void WriteBase64ToFile(string base64, string filePath)
 {
     var buffer = new byte[(base64.Length * 3 + 3) / 4 -
         (base64.Length > 0 && base64[^1] == '=' ?
